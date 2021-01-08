@@ -1,0 +1,30 @@
+This repository is the website for GentenStudios and future library for the 
+modules created for Genten's projects.
+
+## Community
+[Here's a link to our public discord server](https://discord.gg/XRttqAm), where we collaborate and discuss the development of the Phoenix.
+[Here's a link to our community guidelines](./CODE_OF_CONDUCT.md)
+
+## Setup
+This project is built to run on python 3.8.x
+
+A virtual environment is recommended for use with this project, to set that up
+run the following commands:
+
+````
+$ pip install virtualenv
+$ pip install virtualenvwrapper
+$ export WORKON_HOME=~/Envs
+$ source /usr/local/bin/virtualenvwrapper.sh`
+$ mkvirtualenv my-venv
+$ workon my-venv
+$ pip install -r requirements.txt
+````
+
+## Running the project
+Once everything is started, launching the web server is super easy:
+
+````
+$ export FLASK_APP=hello_world.py
+$ flask run
+````
