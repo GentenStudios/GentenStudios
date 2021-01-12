@@ -1,28 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <title>{% block title %}{% endblock %}</title>
-    <!-- Bootstrap core CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="https://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
-  </head>
-  <body>
-    <div class="container">
-      <div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation"><a href="/">Home</a></li>
-            <li role="presentation"><a href="/about">About</a></li>
-            <li role="presentation"><a href="http://flask.pocoo.org" target="_blank">More About Flask</a></li>
-          </ul>
-        </nav>
-      </div>
-      {% block body %}
-      {% endblock %}
-      <footer class="footer">
-        <p>© 2016 Your Name Here</p>
-      </footer>
-    </div> <!-- /container -->
-  </body>
+    <script>
+        /* When the user clicks on the button, toggle between hiding and showing the dropdown content */
+        function myFunction() {
+            document.getElementById("drop").classList.toggle("show");
+        }
+
+        // Close the dropdown menu if the user clicks outside of it
+        window.onclick = function(e) {
+          if (!e.target.matches('.dropbtn') && !e.target.matches('input')  && !e.target.matches('.dropdown-content') ) {
+              const myDropdown = document.getElementById("drop");
+              if (myDropdown.classList.contains('show')) {
+              myDropdown.classList.remove('show');
+            }
+          }
+        }
+    </script>
+</head>
+<body>
+<nav>
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    {% if session['username'] %}
+        <div class="dropdown">
+            <button onclick="myFunction()" class=dropbtn>{{ session['username'] }}</button>
+            <div id="drop" class="dropdown-content">
+                <a href={{ url_for('logout') }}>Logout</a>
+            </div>
+        </div>
+    {% else %}
+        <div class="dropdown">
+            <button onclick="myFunction()" class=dropbtn>Login</button>
+            <div id="drop" class="dropdown-content">
+                <form action="/login" method="post">
+                    <p><input type=text name=username>
+                    <p><input type=submit value=Login>
+                </form>
+            </div>
+        </div>
+    {% endif %}
+</nav>
+{% block body %}
+{% endblock %}
+<footer class="footer">
+    <p>© 2016 Your Name Here</p>
+</footer>
+</body>
 </html>
