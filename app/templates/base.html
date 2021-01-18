@@ -10,13 +10,15 @@
         }
 
         // Close the dropdown menu if the user clicks outside of it
-        window.onclick = function(e) {
-          if (!e.target.matches('.dropbtn') && !e.target.matches('input')  && !e.target.matches('.dropdown-content') ) {
-              const myDropdown = document.getElementById("drop");
-              if (myDropdown.classList.contains('show')) {
-              myDropdown.classList.remove('show');
+        window.onclick = function (e) {
+            if (!e.target.matches('.dropbtn')
+                && !e.target.matches('input')
+                && !e.target.matches('.dropdown-content')) {
+                const myDropdown = document.getElementById("drop");
+                if (myDropdown.classList.contains('show')) {
+                    myDropdown.classList.remove('show');
+                }
             }
-          }
         }
     </script>
 </head>
@@ -39,14 +41,24 @@
                     <p><input type=text name=username>
                     <p><input type=submit value=Login>
                 </form>
+                <div>
+                    <a href="/users/register">Register</a>
+                </div>
             </div>
         </div>
     {% endif %}
 </nav>
-{% block body %}
-{% endblock %}
+<div class="main">
+    {% if error %}
+        <div class="error">
+            {{error}}
+        </div>
+    {% endif %}
+    {% block body %}
+    {% endblock %}
+</div>
 <footer class="footer">
-    <p>© 2016 Your Name Here</p>
+    <p>© 2021 Genten Studios</p>
 </footer>
 </body>
 </html>

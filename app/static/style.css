@@ -3,6 +3,22 @@ body {
   padding: 0;
 }
 
+.main {
+  width:90%;
+  margin-left:5%;
+}
+
+footer{
+  position: fixed;
+  bottom:0;
+  background-color:#333;
+  min-height:100px;
+  text-align: center;
+  color: white;
+  width:100%
+}
+
+
 nav {
   background-color: #333;
   display: block;
@@ -67,3 +83,9 @@ nav a{
 .dropdown-content a:hover {background-color: #ddd}
 
 .show {display:block;}
+
+.error {
+  background-color:Red;
+  width:100%;
+  padding:10px;
+}

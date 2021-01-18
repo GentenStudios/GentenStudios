@@ -1,11 +1,16 @@
-from flask import Flask, session, redirect, url_for, request, render_template
+import os
+
+from flask import Flask, session, redirect, url_for, request, render_template, jsonify
+from flask_sqlalchemy import SQLAlchemy
 from markupsafe import escape
 
 app = Flask(__name__, instance_relative_config=True)
 
-app.config.from_object('config')
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-app.debug = True
+app.config.from_object(os.environ['APP_SETTINGS'])
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+
+from app.models import User
 
 
 @app.route('/')
@@ -21,17 +26,45 @@ def about():
     # return render_template("about.html")
 
 
+@app.route('/users')
+def users():
+    try:
+        _users = User.query.all()
+        return jsonify([e.serialize() for e in _users])
+    except Exception as e:
+        return str(e)
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        session['username'] = request.form['username']
-        return redirect(url_for('index'))
-    return '''
-        <form method="post">
-            <p><input type=text name=username>
-            <p><input type=submit value=Login>
-        </form>
-    '''
+        _username = request.form['username']
+        _match = User.query.filter_by(username=_username).first()
+        if _match is None:
+            return redirect(url_for("login", error="Username not found"))
+        session['username'] = _username
+        return redirect(url_for("index"))
+    _error = request.args.get('error')
+    return render_template("login.html", error=_error)
+
+
+@app.route('/users/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        email = request.form['email']
+        try:
+            user = User(
+                username=username,
+                email=email
+            )
+            db.session.add(user)
+            db.session.commit()
+            session['username'] = request.form['username']
+            return redirect(url_for('index'))
+        except Exception as e:
+            return str(e)
+    return render_template("register.html")
 
 
 @app.route('/logout')
