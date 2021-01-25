@@ -12,13 +12,9 @@ A virtual environment is recommended for use with this project, to set that up
 run the following commands:
 
 ````
-$ pip install virtualenv
-$ pip install virtualenvwrapper
-$ export WORKON_HOME=~/Envs
-$ source /usr/local/bin/virtualenvwrapper.sh`
-$ mkvirtualenv my-venv
-$ workon my-venv
-$ pip install -r requirements.txt
+$ python3 -m venv .venv
+$ source .venv/bin/activate
+$ pip3 install -r requirements.txt
 ````
 
 ## Running the project
