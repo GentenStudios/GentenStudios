@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}{{ module.name }}{% endblock %}
+{% block body %}
+<div>
+    <img src="https://raw.githubusercontent{{ module.source[14:] }}/main/pic.png">
+    <h1>{{ module.name }}</h1>
+    <p>Author: {{ module.owner.username }}</p>
+    <p>{{ module.source }}</p>
+</div>
+{% endblock %}

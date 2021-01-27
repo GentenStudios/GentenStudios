@@ -11,6 +11,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 from app.models import User
+from app.models import Module
 
 
 @app.route('/')
@@ -20,10 +21,7 @@ def index():
 
 @app.route('/about')
 def about():
-    if 'username' in session:
-        return 'Logged in as %s' % escape(session['username'])
-    return 'You are not logged in'
-    # return render_template("about.html")
+    return render_template("about.html")
 
 
 @app.route('/users')
@@ -69,6 +67,45 @@ def register():
 
 @app.route('/logout')
 def logout():
-    # remove the username from the session if it's there
     session.pop('username', None)
     return redirect(url_for('index'))
+
+
+@app.route('/marketplace')
+def marketplace():
+    try:
+        _modules = Module.query.all()
+        return render_template("marketplace.html", modules=_modules)
+    except Exception as e:
+        return str(e)
+
+
+@app.route('/marketplace/new', methods=['GET', 'POST'])
+def add_module():
+    if request.method == 'POST':
+        if not session['username']:
+            return redirect(url_for('login'))
+        name = request.form['name']
+        source = request.form['source']
+        try:
+            user = User.query.filter_by(username=session['username']).first()
+            print(user.modules)
+            user.modules += [Module(
+                name=name,
+                source=source
+            )]
+            db.session.add(user)
+            db.session.commit()
+            return redirect(url_for('marketplace'))
+        except Exception as e:
+            return str(e)
+    return render_template("add_module.html")
+
+
+@app.route('/marketplace/<module_id>')
+def module(module_id):
+    try:
+        _module = Module.query.filter_by(id=module_id).first()
+        return render_template("module.html", module=_module)
+    except Exception as e:
+        return str(e)
