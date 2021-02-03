@@ -24,9 +24,9 @@
 </head>
 <body>
 <nav>
-    <a href="/">Home</a>
-    <a href="/about">About</a>
-    <a href="/marketplace">Marketplace</a>
+    <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('about') }}">About</a>
+    <a href="{{ url_for('marketplace') }}">Marketplace</a>
     {% if session['username'] %}
         <div class="dropdown">
             <button onclick="myFunction()" class=dropbtn>{{ session['username'] }}</button>
@@ -38,12 +38,12 @@
         <div class="dropdown">
             <button onclick="myFunction()" class=dropbtn>Login</button>
             <div id="drop" class="dropdown-content">
-                <form action="/login" method="post">
+                <form action="{{ url_for('login') }}" method="post">
                     <p><input type=text name=username>
                     <p><input type=submit value=Login>
                 </form>
                 <div>
-                    <a href="/users/register">Register</a>
+                    <a href="{{ url_for('register') }}">Register</a>
                 </div>
             </div>
         </div>

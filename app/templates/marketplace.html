@@ -5,7 +5,7 @@
     <h1>Marketplace</h1>
     <span><a href="marketplace/new">New</a></span>
     {% for module in modules %}
-        <div style="border: #333333">
+        <div>
             <a href="marketplace/{{ module.id }}"><h2>{{ module.name }}</h2></a>
             <p>By: {{ module.owner.username }}</p>
         </div>
