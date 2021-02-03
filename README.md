@@ -21,6 +21,7 @@ $ pip3 install -r requirements.txt
 Once everything is started, launching the web server is super easy:
 
 ````
-$ export FLASK_APP=hello_world.py
-$ flask run
+$ export FLASK_APP=app
+$ export APP_SETTINGS=config.DevelopmentConfig
+$ python run.py
 ````
