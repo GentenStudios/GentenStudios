@@ -2,7 +2,7 @@ This repository is the website for GentenStudios and future library for the
 modules created for Genten's projects.
 
 ## Community
-[Here's a link to our public discord server](https://discord.gg/XRttqAm), where we collaborate and discuss the development of the Phoenix.
+[Here's a link to our public discord server](https://discord.gg/XRttqAm), where we collaborate and discuss the development of GentenStudios.
 [Here's a link to our community guidelines](./CODE_OF_CONDUCT.md)
 
 ## Setup
