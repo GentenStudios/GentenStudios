@@ -1,16 +1,14 @@
+import os
 from flask import Flask
-from flask import render_template
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__, instance_relative_config=True)
 
-app.config.from_object('config')
+app.config.from_object(os.environ['APP_SETTINGS'])
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
 
 
-@app.route('/')
-def index():
-    return render_template("index.html")
-
-
-@app.route('/about')
-def about():
-    return render_template("about.html")
+@app.before_first_request
+def create_tables():
+    db.create_all()
