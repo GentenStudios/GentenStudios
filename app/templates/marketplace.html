@@ -3,7 +3,9 @@
 {% block body %}
 <div>
     <h1>Marketplace</h1>
-    <span><a href="marketplace/new">New</a></span>
+    {% if session['username'] %}
+        <span><a href="marketplace/new">New</a></span>
+    {% endif %}
     {% for module in modules %}
         <div>
             <a href="marketplace/{{ module.id }}"><h2>{{ module.name }}</h2></a>
