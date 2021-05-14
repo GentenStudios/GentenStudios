@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Marketplace{% endblock %}
+{% block body %}
+<div>
+    <h1>Marketplace</h1>
+    <span><a href="marketplace/new">New</a></span>
+    {% for module in modules %}
+        <div>
+            <a href="marketplace/{{ module.id }}"><h2>{{ module.name }}</h2></a>
+            <p>By: {{ module.owner.username }}</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

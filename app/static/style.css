@@ -1,11 +1,15 @@
-body {
+body, html {
   margin:0;
   padding: 0;
+  height:100%;
 }
 
 .main {
-  width:90%;
-  margin-left:5%;
+  width:80%;
+  min-height:calc(100% - 146px); /*display height minus nav and footer*/
+  margin:0 5%;
+  padding:2.5% 5%;
+  background-color: #bbbbbb;
 }
 
 footer{
